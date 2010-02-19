@@ -37,11 +37,12 @@ command! -nargs=? -range=% JekyllList :call JekyllList()
 
 function JekyllPost()
     let title = input("Post title: ")
+    let author = input("Author: ")
     if title != ''
-        let file_name = strftime("%Y-%m-%d-") . substitute(tolower(title), ' ', '-', 'g') . ".markdown"
+        let file_name = strftime("%Y-%m-%d-") . substitute(tolower(title), ' ', '-', 'g') . ".textile"
         echo "Making that post " . file_name
         exe "e " . g:jekyll_path . "/_posts/" . file_name
-        let err = append(0, ['---', 'layout: post', 'title: ' . title, '---', ''])
+        let err = append(0, ['---', 'layout: post', 'title: ' . title, '---', '', 'h1. {{ page.title }}','', 'p(meta). ' . strftime("%d %b %Y") . ' - by ' . author, ''])
     else
         echo "You must specify a title"
     endif
@@ -50,7 +51,7 @@ command! -nargs=? -range=% JekyllPost :call JekyllPost()
 
 function JekyllCommit()
     let message = input("Commit Message: ")
-    call s:ExecuteInTree('!git add _posts/*.markdown && git commit -a -m "' . message . '"' )
+    call s:ExecuteInTree('!git add _posts/*.textile && git commit -a -m "' . message . '"' )
 endfunction
 command! -nargs=? -range=% JekyllCommit :call JekyllCommit()
 
