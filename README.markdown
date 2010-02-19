@@ -18,6 +18,10 @@ Set the path to your Jekyll Blog in your vimrc:
 
 You may also want to ad a few mappings to stream line the behavior:
 
+    rake append_mappings
+
+... or by hand adding these lines into your vim config file
+
     map <Leader>jn  :JekyllPost<CR>
     map <Leader>jl  :JekyllList<CR>
     map <Leader>jc  :JekyllCommit<CR>
